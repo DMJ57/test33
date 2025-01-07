@@ -57,8 +57,8 @@
 
 param location string = resourceGroup().location
 param appServicePlanName string = 'myAppServicePlan'
-param skuName string = 'Y1'
-param skuTier string = 'Isolated'
+param skuName string = 'F1'
+param skuTier string = 'Free'
 param capacity int = 2
 
 resource appServicePlan 'Microsoft.Web/serverfarms@2021-02-01' = {
