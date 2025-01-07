@@ -1,3 +1,6 @@
+@description('Resources location')
+param location string = resourceGroup().location
+
 //----------- Storage Account Parameters ------------
 @description('Function Storage Account name')
 @minLength(3)
