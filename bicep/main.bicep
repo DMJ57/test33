@@ -19,7 +19,7 @@ param storageAccountSku string = 'Standard_LRS'
 
 
 //----------- Storage Account Deployment ------------
-module storageAccountModule 'templates/storage.bicep' = {
+module storageAccountModule 'modules/storage.bicep' = {
   name: 'stvmdeploy-${buildNumber}'
   params: {
     name: storageAccountName
