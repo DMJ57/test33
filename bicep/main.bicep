@@ -4,16 +4,16 @@ param environment string = 'dev'
 module storage './modules/storage.bicep' = {
   name: 'storageModule'
   params: {
-    location: '${location}'
-    storageName: 'mystorage${environment}'
+    location: 'eastus'
+    storageName: 'mystorage33'
   }
 }
 
 module functionapp './modules/functionapp.bicep' = {
   name: 'functionAppModule'
   params: {
-    location: '${location}'
-    functionName: 'komastufunapp${environment}'
+    location: 'eastus'
+    functionName: 'komastufunapp'
   }
 }
 
