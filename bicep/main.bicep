@@ -1,5 +1,5 @@
 @description('Resources location')
-param location string = resourceGroup().location
+param location string = 'eastus'
 
 //----------- Storage Account Parameters ------------
 @description('Function Storage Account name')
