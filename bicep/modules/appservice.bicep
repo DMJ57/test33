@@ -57,7 +57,7 @@
 
 param location string = resourceGroup().location
 param appServicePlanName string = 'myAppServicePlan'
-param skuName string = 'V2'
+param skuName string = 'Y1'
 param skuTier string = 'Isolated'
 param capacity int = 2
 
