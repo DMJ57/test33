@@ -1,6 +1,9 @@
 @description('Resources location')
 param location string = resourceGroup().location
 
+//----------- Function App Parameters ------------
+
+
 //----------- Storage Account Parameters ------------
 @description('Function Storage Account name')
 @minLength(3)
@@ -31,3 +34,27 @@ module storageAccountModule 'modules/storage.bicep' = {
     location: location
   }
 }
+
+//----------- App Service Deployment ------------
+
+param appServicePlanName string = 'myAppServicePlan'
+param appServiceName string = 'myAppService'
+
+module appServicePlan 'modules/appservice.bicep' = {
+  name: 'appServicePlanDeployment'
+  params: {
+    location: location
+    appServicePlanName: appServicePlanName
+  }
+}
+
+resource appService 'Microsoft.Web/sites@2021-02-01' = {
+  name: appServiceName
+  location: location
+  properties: {
+    serverFarmId: appServicePlan.outputs.appServicePlanId  // Referencing the App Service Plan ID output from the module
+      }
+}
+
+
+

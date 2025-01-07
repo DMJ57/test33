@@ -51,3 +51,16 @@ jobs:
             --resource-group komatsu \
             --template-file ./bicep/main.bicep \
             --parameters @./bicep/parameters.json
+
+      # Step 5: Deploy Bicep Template
+      - name: Deploy Bicep Template
+        run: |
+          az deployment group create \
+            --resource-group komatsu \
+            --template-file ./bicep/main.bicep \
+            --parameters @./bicep/parameters.json
+        ## --parameters appServicePlanName=myAppServicePlan appName=myWebApp
+
+      
+     
+
