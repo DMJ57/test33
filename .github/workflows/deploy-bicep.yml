@@ -27,4 +27,27 @@ jobs:
 
       - name: Login to Azure
         uses: azure/login@v1
-      
+        with:
+          creds: ${{ secrets.AZURE_SPN_CREDENTIAL }}
+
+      # Step 3: Install Bicep CLI
+      - name: Install Bicep CLI
+        run: |
+          az bicep install
+          az bicep upgrade
+  
+      # Step 4: Validate Bicep Template
+      - name: Validate Bicep Template
+        run: |
+          az deployment group validate \
+            --resource-group myResourceGroup \
+            --template-file ./bicep/main.bicep \
+            --parameters @./bicep/parameters.json
+  
+      # Step 5: Deploy Bicep Template
+      - name: Deploy Bicep Template
+        run: |
+          az deployment group create \
+            --resource-group myResourceGroup \
+            --template-file ./bicep/main.bicep \
+            --parameters @./bicep/parameters.json
