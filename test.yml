@@ -1,33 +1,33 @@
-trigger:
-- main  # Trigger pipeline on pushes to the 'main' branch
+# trigger:
+# - main  # Trigger pipeline on pushes to the 'main' branch
 
-pool:
-  vmImage: 'ubuntu-latest'  # Use the latest Ubuntu agent
+# pool:
+#   vmImage: 'ubuntu-latest'  # Use the latest Ubuntu agent
 
-variables:
-  azureSubscription: 'MyServiceConnection'  # Service connection name in Azure DevOps
-  resourceGroupName: 'myResourceGroup'      # Resource group name
-  location: 'eastus'                        # Deployment region
-  templateFile: 'main.bicep'                # Path to Bicep template file
+# variables:
+#   azureSubscription: 'MyServiceConnection'  # Service connection name in Azure DevOps
+#   resourceGroupName: 'myResourceGroup'      # Resource group name
+#   location: 'eastus'                        # Deployment region
+#   templateFile: 'main.bicep'                # Path to Bicep template file
 
-stages:
-- stage: Deploy
-  jobs:
-  - job: DeployInfrastructure
-    steps:
-    - task: AzureCLI@2
-      inputs:
-        azureSubscription: $(azureSubscription)
-        scriptType: 'bash'
-        scriptLocation: 'inlineScript'
-        inlineScript: |
-          # Ensure Azure CLI has Bicep installed
-          az bicep install
+# stages:
+# - stage: Deploy
+#   jobs:
+#   - job: DeployInfrastructure
+#     steps:
+#     - task: AzureCLI@2
+#       inputs:
+#         azureSubscription: $(azureSubscription)
+#         scriptType: 'bash'
+#         scriptLocation: 'inlineScript'
+#         inlineScript: |
+#           # Ensure Azure CLI has Bicep installed
+#           az bicep install
           
-          # Create resource group if it doesn't exist
-          az group create --name $(resourceGroupName) --location $(location)
+#           # Create resource group if it doesn't exist
+#           az group create --name $(resourceGroupName) --location $(location)
 
-          # Deploy the Bicep template
-          az deployment group create \
-            --resource-group $(resourceGroupName) \
-            --template-file $(templateFile)
+#           # Deploy the Bicep template
+#           az deployment group create \
+#             --resource-group $(resourceGroupName) \
+#             --template-file $(templateFile)
