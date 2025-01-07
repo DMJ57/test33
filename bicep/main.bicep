@@ -13,7 +13,7 @@ module functionapp './modules/functionapp.bicep' = {
   name: 'functionAppModule'
   params: {
     location: location
-    functionName: 'myfuncapp${environment}'
+    functionName: 'komastufunapp${environment}'
   }
 }
 
