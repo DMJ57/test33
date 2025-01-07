@@ -17,6 +17,7 @@ param storageAccountName string
 ])
 param storageAccountSku string = 'Standard_LRS'
 
+var buildNumber = uniqueString(resourceGroup().id)
 
 //----------- Storage Account Deployment ------------
 module storageAccountModule 'modules/storage.bicep' = {
