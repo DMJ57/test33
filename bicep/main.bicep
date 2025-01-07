@@ -5,7 +5,7 @@ param location string = resourceGroup().location
 @description('Function Storage Account name')
 @minLength(3)
 @maxLength(24)
-param storageAccountName string
+param storageAccountName string = 'komatsu33'
 
 @description('Function Storage Account SKU')
 @allowed([
