@@ -1,19 +1,29 @@
-param location string = 'eastus'
-param environment string = 'dev'
+//----------- Storage Account Parameters ------------
+@description('Function Storage Account name')
+@minLength(3)
+@maxLength(24)
+param storageAccountName string
 
-module storage './modules/storage.bicep' = {
-  name: 'storageModule'
+@description('Function Storage Account SKU')
+@allowed([
+  'Standard_LRS'
+  'Standard_GRS'
+  'Standard_RAGRS'
+  'Standard_ZRS'
+  'Premium_LRS'
+  'Premium_ZRS'
+  'Standard_GZRS'
+  'Standard_RAGZRS'
+])
+param storageAccountSku string = 'Standard_LRS'
+
+
+//----------- Storage Account Deployment ------------
+module storageAccountModule 'templates/StorageAccount.bicep' = {
+  name: 'stvmdeploy-${buildNumber}'
   params: {
-    location: 'eastus'
-    storageName: 'mystorage33'
+    name: storageAccountName
+    sku: storageAccountSku
+    location: location
   }
 }
-
-module functionapp './modules/functionapp.bicep' = {
-  name: 'functionAppModule'
-  params: {
-    location: 'eastus'
-    functionName: 'komastufunapp'
-  }
-}
-
