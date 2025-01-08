@@ -30,7 +30,7 @@ jobs:
         with:
           creds: ${{ secrets.AZURE_SPN_CREDENTIAL }}
 
-      # Step 3: Install Bicep CLI
+      # Step 3: Install Bicep CLI     checkpoint needs to be added here
       - name: Install Bicep CLI
         run: |
           az bicep install
