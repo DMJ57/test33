@@ -52,6 +52,18 @@ jobs:
             --template-file ./bicep/main.bicep \
             --parameters @./bicep/parameters.json
 
+      # # Step 6: Deploy Bicep Template for keyvault
+      # - name: Deploy Bicep Template
+      #   uses: azure/arm-deploy@v1
+      #   with:
+      #     subscriptionId: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+      #     resourceGroupName: '<RESOURCE_GROUP_NAME>' # Replace with your resource group
+      #     template: ./keyvault.bicep
+      #     parameters: >
+      #       keyVaultName=myKeyVault
+      #       location='East US'
+            # skuName='standard'
+
     
 
       
