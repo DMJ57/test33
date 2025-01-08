@@ -47,7 +47,7 @@ var buildNumber = uniqueString(resourceGroup().id)
 
 //----------- Storage Account Deployment ------------
 module storageAccountModule 'modules/storage.bicep' = {
-  name: 'stvmdeploy-${buildNumber}'
+  name: 'stvmdeploy-storage-${buildNumber}'
   params: {
     name: storageAccountName
     sku: storageAccountSku
@@ -78,7 +78,7 @@ module storageAccountModule 'modules/storage.bicep' = {
 
 //----------- KeyVault Deployment ------------
 module keyVaultModule 'modules/keyvault.bicep' = {
-  name: 'stvmdeploy-${buildNumber}'
+  name: 'stvmdeploy-keyvault-${buildNumber}'
   params: {
     keyVaultName: myKeyVault
     skuName: keyVaultSku
