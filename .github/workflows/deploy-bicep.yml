@@ -42,7 +42,6 @@ jobs:
           az deployment group validate \
             --resource-group komatsu \
             --template-file ./bicep/main.bicep \
-            --parameters @parameters.json\
             --parameters secrets = '[
                { "name" : "pimfeed-com-sftp-key", "value" : "${{secrets.PIMFEED_COM_SFTP_KEY}}" },
                { "name" : "pimfeed-pim-awss3-accesskeyid", "value" : "${{secrets.PIMFEED_PIM_AWSS3_ACCESSKEYID}}" }
@@ -54,7 +53,6 @@ jobs:
           az deployment group create \
             --resource-group komatsu \
             --template-file ./bicep/main.bicep \
-            --parameters @parameters.json\
             --parameters secrets = '[
                { "name" : "pimfeed-com-sftp-key", "value" : "${{secrets.PIMFEED_COM_SFTP_KEY}}" },
                { "name" : "pimfeed-pim-awss3-accesskeyid", "value" : "${{secrets.PIMFEED_PIM_AWSS3_ACCESSKEYID}}" }
