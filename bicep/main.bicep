@@ -7,7 +7,7 @@ param location string = resourceGroup().location
 @description('Key Vault name')
 @minLength(3)
 @maxLength(30)
-param myKeyVault string = 'komatsuKeyvault33'
+param myKeyVault string = 'kx-demo-test'
 
 @description('keyVault SKU')
 @allowed([
@@ -21,8 +21,8 @@ param keyVaultSku string = 'standard'
 @maxLength(50)
 param tenantId string = '351ea326-1a66-4da2-addd-15d37c541283'
 
-
-
+@description('Array of secrets to add(name and value)')
+param secrets array 
 
 //----------- Storage Account Parameters ------------
 @description('Function Storage Account name')
@@ -77,15 +77,16 @@ module storageAccountModule 'modules/storage.bicep' = {
 // }
 
 //----------- KeyVault Deployment ------------
-module keyVaultModule 'modules/keyvault.bicep' = {
-  name: 'stvmdeploy-keyvault-${buildNumber}'
+module keyVaultModule './modules/keyvaultsecret.bicep' = [for secret in secrets: {
+  name : 'AddSecret_${secret.Name}'
   params: {
     keyVaultName: myKeyVault
-    skuName: keyVaultSku
-    location: location
-    tenantId: tenantId
+    secretName: secret.name
+    secretValue: secret.value
   }
 }
+]
+
 
 
 

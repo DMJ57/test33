@@ -4,7 +4,13 @@
   "parameters": {
     "location": {
       "value": "eastus"
+    },
+    "containerNames" : {
+      "value" : [
+        "inbound",
+        "outbound",
+        "error"
+      ]
     }
   }
 }
-
