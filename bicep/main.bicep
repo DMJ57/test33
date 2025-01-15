@@ -90,7 +90,7 @@ module keyVaultModule './modules/keyvaultsecret.bicep' = [for secret in secrets:
 ]
 
 module storageContainerModule './modules/storage-container.bicep' = [for containers in containerNames: {
-  name : 'AddContainer_${containerNames}'
+  name : 'AddContainer_${containers}'
   params: {
     storageAccountName: storageAccountName
     containerNames: containerNames
