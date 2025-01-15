@@ -24,6 +24,8 @@ param tenantId string = '351ea326-1a66-4da2-addd-15d37c541283'
 @description('Array of secrets to add(name and value)')
 param secrets array 
 
+param containerNames array
+
 //----------- Storage Account Parameters ------------
 @description('Function Storage Account name')
 @minLength(3)
@@ -87,6 +89,14 @@ module keyVaultModule './modules/keyvaultsecret.bicep' = [for secret in secrets:
 }
 ]
 
+module storageContainerModule './modules/storage-container.bicep' = [for containers in containerNames: {
+  name : 'AddContainer_${containerNames}'
+  params: {
+    storageAccountName: storageAccountName
+    containerNames: containerNames
+  }
+}
+]
 
 
 
