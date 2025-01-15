@@ -1,5 +1,5 @@
 @description('Name of existing Storage Account')
-param storageAccountName string = 'komkxintdataeusdevdl'
+param storageAccountName string = 'komatsu33'
 
 @description('Array of container Names to create')
 param containerNames array = [
