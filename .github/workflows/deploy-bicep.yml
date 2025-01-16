@@ -19,6 +19,7 @@ jobs:
   build:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
+    environment : Dev
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
@@ -31,18 +32,15 @@ jobs:
           creds: ${{ secrets.AZURE_SPN_CREDENTIAL }}
 
       - name: replace scerets in Parameters
-        env:
-            SFTP_KEY : ${{ secrets.PIMFEED_COM_SFTP_KEY }}
-            ACCESS_KEYID : ${{ secrets.PIMFEED_PIM_AWSS3_ACCESSKEYID }}
-            NOTIFICATION : ${{secrets.NOTIFICATION_EMAILSERVICE_SECRET}}
         run: |
-              jq --arg sftp "$SFTP_KEY"\
-                --arg accesskey "$ACCESS_KEYID"\
-                --arg notification "$NOTIFICATION"\
+              jq --arg sftp "${{ secrets.PIMFEED_COM_SFTP_KEY }}"\
+                --arg accesskey "${{ secrets.PIMFEED_PIM_AWSS3_ACCESSKEYID }}"\
+                --arg notification "${{secrets.NOTIFICATION_EMAILSERVICE_SECRET}}"\
                 '.parameters.secrets.value[0].value = $sftp
                 | .parameters.secrets.value[1].value = $accesskey
                 | .parameters.secrets.value[2].value = $notification' \
-                ./bicep/parameters.json
+                ./bicep/parameters.json > ./bicep/updated-parameter.json
+        
               
       # Step 3: Install Bicep CLI
       - name: Install Bicep CLI
@@ -56,7 +54,7 @@ jobs:
           az deployment group validate \
             --resource-group komatsu \
             --template-file ./bicep/main.bicep \
-            --parameters @./bicep/parameters.json
+            --parameters @./bicep/updated-parameter.json
 
   
       # Step 5: Deploy Bicep Template
@@ -65,7 +63,7 @@ jobs:
           az deployment group create \
             --resource-group komatsu \
             --template-file ./bicep/main.bicep \
-            --parameters @./bicep/parameters.json
+            --parameters @./bicep/updated-parameter.json
 
       # # Step 6: Deploy Bicep Template for keyvault
       # - name: Deploy Bicep Template
