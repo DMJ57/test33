@@ -36,17 +36,15 @@ jobs:
             ACCESS_KEYID : ${{ secrets.PIMFEED_PIM_AWSS3_ACCESSKEYID }}
             NOTIFICATION : ${{secrets.NOTIFICATION_EMAILSERVICE_SECRET}}
         run: |
-             jq --arg sftp "$SFTP_KEY"\
+              jq --arg sftp "$SFTP_KEY"\
                 --arg accesskey "$ACCESS_KEYID"\
-                --arg notification "$NOTIFICATION"
-                '.parameters.secrets.value |= map(
-                    if .name == "pimfeed-com-sftp-key" then .value = $sftp
-                    if .name == "pimfeed-pim-awss3-accesskeyid" then .value = $accesskey
-                    if .name == "notification-emailservice-secret" then .value = $notification
-                    else .
-                    end
-                  )' ./bicep/parameters.json > ./bicep/updated-parameters.json
-                cat ./bicep/updated-parameters.json
+                --arg notification "$NOTIFICATION"\
+                '.parameters.secrets.value[0].value = $sftp
+                | .parameters.secrets.value[1].value = $accesskey
+                | .parameters.secrets.value[2].value = $notification' \
+                ./bicep/parameters.json
+                
+              cat ./bicep/parameters.json
         
 
       # Step 3: Install Bicep CLI
