@@ -35,6 +35,7 @@ jobs:
              jq '.parameters.secrets.value |= map(
                 if .name == "pimfeed-com-sftp-key" then .value = "${{ secrets.PIMFEED_COM_SFTP_KEY }}"
                 elif .name == "pimfeed-pim-awss3-accesskeyid" then .value = "${{ secrets.PIMFEED_PIM_AWSS3_ACCESSKEYID }}"
+                elif .name == "notification-emailservice-secret" then .value = "${{secrets.NOTIFICATION_EMAILSERVICE_SECRET}}"
                 else .
                 end
               )' ./bicep/parameters.json > ./bicep/updated-parameters.json
