@@ -8,9 +8,6 @@
     "myKeyVault" : {
       "value" : "kx-keyvault-test"
     },
-    "keyVaultSku" : {
-      "value" : "standard"
-    },
     "containerNames" : {
       "value" : [
         "inbound",
