@@ -30,6 +30,15 @@ jobs:
         with:
           creds: ${{ secrets.AZURE_SPN_CREDENTIAL }}
 
+      - name: replace scerets in Parameters
+        run: |
+             jq '.parameters.secrets.value |= map(
+                if .name == "pimfeed-com-sftp-key" then .value = "${{ secrets.PIMFEED_COM_SFTP_KEY }}"
+                elif .name == "pimfeed-pim-awss3-accesskeyid" then .value = "${{ secrets.PIMFEED_PIM_AWSS3_ACCESSKEYID }}"
+                else .
+                end
+              )' parameter.json > updated-parameters.json
+
       # Step 3: Install Bicep CLI
       - name: Install Bicep CLI
         run: |
@@ -42,7 +51,8 @@ jobs:
           az deployment group validate \
             --resource-group komatsu \
             --template-file ./bicep/main.bicep \
-            --parameters @./bicep/parameters.json
+            --parameters @./bicep/updated-parameters.json
+
   
       # Step 5: Deploy Bicep Template
       - name: Deploy Bicep Template
@@ -50,7 +60,7 @@ jobs:
           az deployment group create \
             --resource-group komatsu \
             --template-file ./bicep/main.bicep \
-            --parameters @./bicep/parameters.json
+            --parameters @./bicep/updated-parameters.json
 
       # # Step 6: Deploy Bicep Template for keyvault
       # - name: Deploy Bicep Template

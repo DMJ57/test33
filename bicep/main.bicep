@@ -7,7 +7,7 @@ param location string = resourceGroup().location
 @description('Key Vault name')
 @minLength(3)
 @maxLength(30)
-param myKeyVault string = 'kx-demo-test'
+param myKeyVault string
 
 @description('keyVault SKU')
 @allowed([
