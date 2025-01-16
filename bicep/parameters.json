@@ -6,7 +6,7 @@
       "value": "eastus"
     },
     "myKeyVault" : {
-      "value" : "kx-demo-test"
+      "value" : "kx-keyvault-test"
     },
     "keyVaultSku" : {
       "value" : "standard"
