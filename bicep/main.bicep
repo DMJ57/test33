@@ -9,17 +9,6 @@ param location string = resourceGroup().location
 @maxLength(30)
 param myKeyVault string
 
-@description('keyVault SKU')
-@allowed([
-  'standard'
-  'Premium'
-])
-param keyVaultSku string = 'standard'
-
-@description('Key Vault Tenant ID')
-@minLength(3)
-@maxLength(50)
-param tenantId string = '351ea326-1a66-4da2-addd-15d37c541283'
 
 @description('Array of secrets to add(name and value)')
 param secrets array 

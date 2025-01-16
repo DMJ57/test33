@@ -13,7 +13,7 @@ resource keyVault 'Microsoft.KeyVault/vaults@2023-07-01' existing = {
   name: keyVaultName
 }
 
-resource sftpKeySecret 'Microsoft.KeyVault/vaults/secrets@2023-07-01' = {
+resource keyVaultSecret 'Microsoft.KeyVault/vaults/secrets@2023-07-01' = {
   parent: keyVault
   name: secretName
   properties: {
