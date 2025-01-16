@@ -43,10 +43,7 @@ jobs:
                 | .parameters.secrets.value[1].value = $accesskey
                 | .parameters.secrets.value[2].value = $notification' \
                 ./bicep/parameters.json
-                
-              cat ./bicep/parameters.json
-        
-
+              
       # Step 3: Install Bicep CLI
       - name: Install Bicep CLI
         run: |
@@ -59,7 +56,7 @@ jobs:
           az deployment group validate \
             --resource-group komatsu \
             --template-file ./bicep/main.bicep \
-            --parameters @./bicep/updated-parameters.json
+            --parameters @./bicep/parameters.json
 
   
       # Step 5: Deploy Bicep Template
@@ -68,7 +65,7 @@ jobs:
           az deployment group create \
             --resource-group komatsu \
             --template-file ./bicep/main.bicep \
-            --parameters @./bicep/updated-parameters.json
+            --parameters @./bicep/parameters.json
 
       # # Step 6: Deploy Bicep Template for keyvault
       # - name: Deploy Bicep Template
