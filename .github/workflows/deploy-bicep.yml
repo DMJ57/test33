@@ -37,7 +37,7 @@ jobs:
                 elif .name == "pimfeed-pim-awss3-accesskeyid" then .value = "${{ secrets.PIMFEED_PIM_AWSS3_ACCESSKEYID }}"
                 else .
                 end
-              )' parameter.json > updated-parameters.json
+              )' ./bicep/parameters.json > ./bicep/updated-parameters.json
 
       # Step 3: Install Bicep CLI
       - name: Install Bicep CLI
